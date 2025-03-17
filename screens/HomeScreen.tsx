@@ -8,20 +8,29 @@ import {
 } from "react-native";
 import React from "react";
 import { restaurants } from "../data/restaurant";
-import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 
+type RootStackParamList = {
+  Home: undefined;
+  RestaurantDetails: {
+    restaurant: { image: any; name: string; description: string };
+  };
+};
+
 const HomeScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const renderItem = ({
     item,
   }: {
-    item: { image: string; name: string; description: string };
+    item: { image: any; name: string; description: string };
   }) => (
     <TouchableOpacity
       style={styles.restaurant}
-      onPress={() => navigation.navigate("RestaurantDetails")}>
-      <Image source={{ uri: item.image }} style={styles.image} />
+      onPress={() =>
+        navigation.navigate("RestaurantDetails", { restaurant: item })
+      }>
+      <Image source={item.image} style={styles.image} />
       <View style={styles.restaurantContainer}>
         <Text style={styles.restaurantName}>{item.name}</Text>
         <Text style={styles.restaurantDescription}>{item.description}</Text>
