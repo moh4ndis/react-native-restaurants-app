@@ -16,12 +16,12 @@ const HomeScreen = () => {
   const renderItem = ({
     item,
   }: {
-    item: { image: string; name: string; description: string };
+    item: { image: any; name: string; description: string };
   }) => (
     <TouchableOpacity
       style={styles.restaurant}
       onPress={() => navigation.navigate("RestaurantDetails")}>
-      <Image source={{ uri: item.image }} style={styles.image} />
+      <Image source={item.image} style={styles.image} />
       <View style={styles.restaurantContainer}>
         <Text style={styles.restaurantName}>{item.name}</Text>
         <Text style={styles.restaurantDescription}>{item.description}</Text>
